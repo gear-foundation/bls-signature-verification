@@ -1,18 +1,16 @@
-use ark_bls12_381::{Bls12_381, G1Affine, G1Projective as G1, G2Affine, G2Projective as G2};
-use ark_ec::{pairing::Pairing, AffineRepr, CurveGroup, Group};
+use ark_bls12_381::{G1Affine, G1Projective as G1, G2Affine, G2Projective as G2};
+use ark_ec::{Group};
 
-use ark_groth16::{Groth16, PreparedVerifyingKey};
 use ark_serialize::CanonicalSerialize;
-use ark_snark::SNARK;
 use ark_std::{
-    ops::{Mul, Neg},
+    ops::{Mul},
     UniformRand,
 };
 use gclient::{EventListener, EventProcessor, GearApi, Result};
 use gstd::prelude::*;
-use test_bn254::*;
+use bls381_verification::*;
 type ScalarField = <G2 as Group>::ScalarField;
-pub const PATH: &str = "./target/wasm32-unknown-unknown/release/test_bn254.opt.wasm";
+pub const PATH: &str = "./target/wasm32-unknown-unknown/release/bls381_verification.opt.wasm";
 
 type ArkScale<T> = ark_scale::ArkScale<T, { ark_scale::HOST_CALL }>;
 
@@ -65,7 +63,7 @@ fn generate_key_pairs(number_of_keys: u8) -> (Vec<ScalarField>, Vec<Vec<u8>>) {
     let mut pub_keys = Vec::new();
 
     // Loop to generate 10 pairs of private and public keys
-    for _ in 0..10 {
+    for _ in 0..number_of_keys {
         // Generate a random private key using a uniform distribution
         let priv_key: ScalarField = UniformRand::rand(&mut rng);
 
@@ -243,7 +241,6 @@ async fn test_signature_verification_failure_incomplete_signatures() -> Result<(
     let mut listener = client.subscribe().await?;
 
     let mut rng = ark_std::test_rng();
-    let generator: G2 = G2::generator();
 
     let (priv_keys, pub_keys) = generate_key_pairs(10);
 

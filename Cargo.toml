@@ -1,5 +1,5 @@
 [package]
-name = "test-bn254"
+name = "bls381-verification"
 version = "0.1.0"
 edition = "2021"
 

@@ -1,1 +1,1 @@
-target/wasm32-unknown-unknown/release/test_bn254
+target/wasm32-unknown-unknown/release/bls381_verification
