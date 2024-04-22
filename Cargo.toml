@@ -1,0 +1,32 @@
+[package]
+name = "test-bn254"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gstd = { git = "https://github.com/gear-tech/gear", features = ["debug"],  tag = "v1.3.0" }
+gbuiltin-bls381 = { git = "https://github.com/gear-tech/gear", tag = "v1.3.0" }
+
+scale-info = { version = "2", default-features = false, features = ["derive"] }
+parity-scale-codec = { version = "3", default-features = false }
+ark-ff = "0.4.2"
+ark-ec = { version = "0.4.2", default-features = false }
+ark-serialize = { version = "=0.4.2", default-features = false }
+hex-literal = "0.3.4"
+ark-scale = { version = "0.0.11", default-features = false }
+ark-bls12-381 = { version = "0.4.0", default-features = false, features = ["curve"] }
+ark-groth16 = {version = "0.4.0", default-features = false}
+
+[build-dependencies]
+gear-wasm-builder = { git = "https://github.com/gear-tech/gear", tag = "v1.3.0" }
+
+[dev-dependencies]
+ark-bls12-381 = { version = "0.4.0", features = ["curve"] }
+ark-std = "0.4.0"
+gclient = { git = "https://github.com/gear-tech/gear", tag = "v1.3.0" }
+tokio = "1"
+rand = "0.8.5"
+ark-snark = "0.4.0"
+ark-r1cs-std = { version = "0.4" }
+ark-relations = { version = "0.4" }
+itertools = "0.10.1"
